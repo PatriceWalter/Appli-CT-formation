@@ -603,12 +603,12 @@ showDefectHelp=function(k,c){let [ref,f,p]=k.split("|"),d=pointDefects(f,p).find
 
 
 const TECH_IMAGES = {
-  brake: {title:"Freinage — vue éclatée", subtitle:"Disque, étrier, plaquettes, support et flexible", note:"Illustration pédagogique type manuel atelier. Elle aide à repérer l’organe et ses éléments principaux.", src:'assets/illustration_01.webp'},
-  steering: {title:"Direction — vue éclatée", subtitle:"Crémaillère, biellettes, rotules, colonne et porte-fusée", note:"Le cartouche véhicule montre aussi l’emplacement général sur le train avant.", src:'assets/illustration_02.webp'},
-  suspension: {title:"Suspension / train roulant — vue éclatée", subtitle:"Jambe de force, ressort, triangle, rotule, biellette et moyeu", note:"Utile pour les points liés à la suspension, aux liaisons au sol et à certains organes de train avant.", src:'assets/illustration_03.webp'},
-  headlight: {title:"Éclairage — projecteur / phare", subtitle:"Boîtier, glace, module LED/ampoule, couvercles et connecteur", note:"Le petit encart véhicule localise le projecteur sur l’avant du véhicule.", src:'assets/illustration_04.webp'},
-  exhaust: {title:"Pollution / échappement — vue d’ensemble", subtitle:"Collecteur, sonde lambda, catalyseur, FAP, tube et silencieux", note:"L’encart localise la ligne d’échappement sous le véhicule pour aider au repérage.", src:'assets/illustration_05.webp'},
-  plates: {title:"Plaques d’immatriculation — emplacement", subtitle:"Montage avant et arrière avec zones de fixation", note:"Cette planche sert aussi de localisation : plaque avant + plaque arrière avec zones de montage.", src:'assets/illustration_06.webp'}
+  brake: {title:"Freinage — vue éclatée", subtitle:"Disque, étrier, plaquettes, support et flexible", note:"Illustration pédagogique type manuel atelier. Elle aide à repérer l’organe et ses éléments principaux.", src:'illustration_01.webp'},
+  steering: {title:"Direction — vue éclatée", subtitle:"Crémaillère, biellettes, rotules, colonne et porte-fusée", note:"Le cartouche véhicule montre aussi l’emplacement général sur le train avant.", src:'illustration_02.webp'},
+  suspension: {title:"Suspension / train roulant — vue éclatée", subtitle:"Jambe de force, ressort, triangle, rotule, biellette et moyeu", note:"Utile pour les points liés à la suspension, aux liaisons au sol et à certains organes de train avant.", src:'illustration_03.webp'},
+  headlight: {title:"Éclairage — projecteur / phare", subtitle:"Boîtier, glace, module LED/ampoule, couvercles et connecteur", note:"Le petit encart véhicule localise le projecteur sur l’avant du véhicule.", src:'illustration_04.webp'},
+  exhaust: {title:"Pollution / échappement — vue d’ensemble", subtitle:"Collecteur, sonde lambda, catalyseur, FAP, tube et silencieux", note:"L’encart localise la ligne d’échappement sous le véhicule pour aider au repérage.", src:'illustration_05.webp'},
+  plates: {title:"Plaques d’immatriculation — emplacement", subtitle:"Montage avant et arrière avec zones de fixation", note:"Cette planche sert aussi de localisation : plaque avant + plaque arrière avec zones de montage.", src:'illustration_06.webp'}
 };
 function technicalAssetKeys(text, extras=[]){
   const extraText=(extras||[]).map(x=>[(x.piece||''),(x.role||''),(x.loc||'')].join(' ')).join(' ');
@@ -631,12 +631,12 @@ function renderPart3DGallery(pl, extras=[]){
 
 
 const ADV_TECH_IMAGES = {
-  plates: {title:"Plaques d’immatriculation — emplacement avant / arrière", subtitle:"Localisation illustrée sur le véhicule", src:'assets/illustration_07.webp', note:"Planche pédagogique montrant directement la plaque avant et la plaque arrière sur le véhicule."},
-  brake: {title:"Frein avant — localisation + vue éclatée", subtitle:"Disque, plaquettes et étrier", src:'assets/illustration_08.webp', note:"L’illustration montre à la fois où se situe l’organe sur le véhicule et les principales pièces du frein avant."},
-  steering: {title:"Direction — localisation + organes principaux", subtitle:"Crémaillère, colonne et biellettes", src:'assets/illustration_09.webp', note:"La zone de direction est mise en évidence sur le train avant avec ses principaux composants."},
-  suspension: {title:"Essieux / train roulant / suspension — localisation illustrée", subtitle:"Train avant, suspension, moyeu et bras", src:'assets/illustration_10.webp', note:"Cette planche sert pour les points liés aux essieux, au train roulant, à la suspension, aux roues et à certains organes associés."},
-  headlight: {title:"Éclairage — projecteur avant", subtitle:"Localisation sur le véhicule et organes du phare", src:'assets/illustration_11.webp', note:"Le projecteur est repéré sur le véhicule, puis détaillé dans une illustration technique de ses principaux sous-ensembles."},
-  exhaust: {title:"Pollution / échappement — localisation illustrée", subtitle:"Ligne d’échappement, catalyseur, FAP, silencieux", src:'assets/illustration_12.webp', note:"La ligne d’échappement est visualisée sous le véhicule pour un repérage plus juste que le schéma générique."}
+  plates: {title:"Plaques d’immatriculation — emplacement avant / arrière", subtitle:"Localisation illustrée sur le véhicule", src:'illustration_07.webp', note:"Planche pédagogique montrant directement la plaque avant et la plaque arrière sur le véhicule."},
+  brake: {title:"Frein avant — localisation + vue éclatée", subtitle:"Disque, plaquettes et étrier", src:'illustration_08.webp', note:"L’illustration montre à la fois où se situe l’organe sur le véhicule et les principales pièces du frein avant."},
+  steering: {title:"Direction — localisation + organes principaux", subtitle:"Crémaillère, colonne et biellettes", src:'illustration_09.webp', note:"La zone de direction est mise en évidence sur le train avant avec ses principaux composants."},
+  suspension: {title:"Essieux / train roulant / suspension — localisation illustrée", subtitle:"Train avant, suspension, moyeu et bras", src:'illustration_10.webp', note:"Cette planche sert pour les points liés aux essieux, au train roulant, à la suspension, aux roues et à certains organes associés."},
+  headlight: {title:"Éclairage — projecteur avant", subtitle:"Localisation sur le véhicule et organes du phare", src:'illustration_11.webp', note:"Le projecteur est repéré sur le véhicule, puis détaillé dans une illustration technique de ses principaux sous-ensembles."},
+  exhaust: {title:"Pollution / échappement — localisation illustrée", subtitle:"Ligne d’échappement, catalyseur, FAP, silencieux", src:'illustration_12.webp', note:"La ligne d’échappement est visualisée sous le véhicule pour un repérage plus juste que le schéma générique."}
 };
 function advancedTechKeys(text, extras=[]){
   const extraText=(extras||[]).map(x=>[(x.piece||''),(x.role||''),(x.loc||'')].join(' ')).join(' ');
@@ -832,7 +832,7 @@ const EXACT_TECH_IMAGES = {
   brake_hose: {
     title:"Flexibles de frein — localisation et contrôle",
     subtitle:"Flexible, raccords, fixation, étrier et cheminement près des roues",
-    src:'assets/illustration_13.webp',
+    src:'illustration_13.webp',
     note:"Planche dédiée au flexible de frein. Elle remplace la vue générique du freinage pour ce point."
   }
 };
