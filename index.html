@@ -235,7 +235,7 @@ font-size:11px;background:#fff;margin:2px}
 <div id="toast" class="toast"></div>
 
 <div id="modal" class="modal hidden"><div class="modal-box"><div class="actions no-print" style="margin-top:0"><div><h2 style="margin:0">Rapport de contrôle — Simulation</h2><p style="color:var(--muted);margin:5px 0">Récapitulatif pédagogique</p></div><button class="btn secondary" onclick="closeReport()">Fermer</button></div><div id="reportContent"></div><div class="actions no-print"><button class="btn secondary" onclick="closeReport()">← Continuer</button><button class="btn primary" onclick="window.print()">🖨️ Imprimer / Enregistrer en PDF</button></div></div></div>
-<div id="helpModal" class="modal help-modal hidden" onclick="if(event.target===this)closeHelp()"><div class="modal-box help-box"><div class="help-head"><div><div id="helpKicker" class="help-kicker">Aide pédagogique</div><h2 id="helpTitle" style="margin:0"></h2></div><button class="btn secondary" type="button" onclick="closeHelp()">Fermer</button></div><div id="helpContent" class="help-content"></div><div class="actions"><span></span><button class="btn primary" type="button" onclick="closeHelp()">J’ai compris</button></div></div></div>
+<div id="helpModal" class="modal help-modal hidden" onclick="if(event.target===this)closeHelp()"><div class="modal-box help-box"><div class="help-head"><div><div id="helpKicker" class="help-kicker">Aide pédagogique</div><h2 id="helpTitle" style="margin:0"></h2></div><button class="btn secondary" type="button" onclick="closeHelp()">Fermer</button></div><div id="helpContent" class="help-content"></div><div class="actions help-nav-actions"><button id="helpPrevBtn" class="btn secondary" type="button" onclick="helpMovePoint(-1)">← Point précédent</button><button class="btn secondary" type="button" onclick="closeHelp()">Fermer l’aide</button><button id="helpNextBtn" class="btn primary" type="button" onclick="helpMovePoint(1)">Point suivant →</button></div></div></div>
 
 
 <div id="consistencyModal" class="modal hidden"><div class="modal-box small-modal"><div class="help-head"><div><div class="help-kicker">Contrôle de cohérence</div><h2 style="margin:0">Avant de générer le rapport</h2></div><button class="btn secondary" onclick="closeConsistency()">Fermer</button></div><div id="consistencyContent"></div><div class="actions"><button class="btn secondary" onclick="closeConsistency()">← Revenir au contrôle</button><button id="provisionalReportBtn" class="btn primary" onclick="forceReport()">Voir le rapport provisoire</button></div></div></div>
@@ -1057,7 +1057,7 @@ function renderV87Illustrations(pl, extras=[]){
   if(!ids.length){
     return intro+`<div class="help-section"><h3>Illustration technique</h3><div class="tech-empty">Aucune illustration spécifique n’est encore rattachée à ce point précis. L’application privilégie l’absence d’image plutôt qu’une illustration trompeuse.</div></div>`;
   }
-  return intro+`<div class="help-section"><div class="part3d-inline-title"><h3>Illustrations techniques</h3><span class="ultra-badge">Version assets</span></div><div class="tech-gallery">${ids.map(id=>{const a=V87_IMAGES[id];return `<div class="tech-card"><div class="tech-card-head"><h3>${esc(a.title)}</h3><div class="tech-sub">${esc(a.subtitle)}</div></div><div class="tech-card-body"><figure class="tech-figure">${techAssetImg(id,a)}</figure><div class="tech-note">${esc(a.note)}</div><div class="illustration-caption">L’application recherche automatiquement cette image dans <b>assets/</b> puis à la racine du dépôt. Les anciens noms illustration_XX.webp sont également acceptés quand ils existent.</div></div></div>`;}).join('')}</div></div>`;
+  return intro+`<div class="help-section"><div class="part3d-inline-title"><h3>Illustrations techniques</h3><span class="ultra-badge">Illustration dédiée</span></div><div class="tech-gallery">${ids.map(id=>{const a=V87_IMAGES[id];return `<div class="tech-card"><div class="tech-card-head"><h3>${esc(a.title)}</h3><div class="tech-sub">${esc(a.subtitle)}</div></div><div class="tech-card-body"><figure class="tech-figure">${techAssetImg(id,a)}</figure><div class="tech-note">${esc(a.note)}</div><div class="illustration-caption">Illustration pédagogique dédiée à l’organe contrôlé. Cliquez sur l’image pour l’agrandir.</div></div></div>`;}).join('')}</div></div>`;
 }
 showPointHelp=function(f,p){
   let pl=pointsFor(f).get(p)||p,h=pointHelpData(f,p,pl),defects=pointDefects(f,p);
@@ -1090,6 +1090,134 @@ showDefectHelp=function(k,c){
     helpSection("Gravité dans le référentiel",d.severity||"Non renseignée")+
     helpSection("Important","Les illustrations sont volontairement associées par famille de pièce. Pour une pièce très spécifique, le véhicule réel et le référentiel restent prioritaires.","help-warning");
   $("helpModal").classList.remove("hidden");
+}
+
+
+/* ===== V8.9 CORRECTIONS MÉTIER + NAVIGATION ===== */
+let helpContext = {f:"", p:""};
+
+const V89_IMAGES = {
+  booster_master: {
+    title:"Assistance de freinage / maître-cylindre",
+    subtitle:"Deux organes distincts regroupés dans le point 1.1.10",
+    src:"assets/brake_booster_master_cylinder.webp",
+    note:"Le servofrein est l’organe d’assistance. Sur un montage à dépression, il n’est pas lui-même hydraulique. Le maître-cylindre, fixé devant lui sur ce type de montage, transforme l’effort transmis en pression hydraulique dans le circuit."
+  }
+};
+
+function v89ImgCard(a){
+  return `<div class="tech-card"><div class="tech-card-head"><h3>${esc(a.title)}</h3><div class="tech-sub">${esc(a.subtitle)}</div></div>
+  <div class="tech-card-body"><figure class="tech-figure">${techAssetImg ? techAssetImg("booster_master",a) : `<img loading="lazy" src="${a.src}" alt="${esc(a.title)}">`}</figure>
+  <div class="tech-note">${esc(a.note)}</div></div></div>`;
+}
+
+function renderPoint110Help(){
+  const a=V89_IMAGES.booster_master;
+  return `<div class="help-location-note"><strong>Localisation conseillée :</strong> dans le compartiment moteur, côté tablier, dans l’axe de la pédale de frein sur un montage classique. L’implantation peut varier selon le véhicule.</div>
+  <div class="help-section">
+    <h3>Point 1.1.10 : bien distinguer les deux organes</h3>
+    <p><b>Assistance de freinage / servofrein :</b> amplifie l’effort du conducteur. Sur un servofrein à dépression, son fonctionnement repose sur une différence de pression d’air ; ce n’est donc pas un organe hydraulique.</p>
+    <p><b>Maître-cylindre :</b> organe hydraulique distinct. Il reçoit l’effort transmis par la pédale/assistance et met le liquide de frein sous pression.</p>
+    <p style="margin-bottom:0"><b>Pourquoi le titre les regroupe :</b> le référentiel historique intégré à cette application regroupe ces contrôles sous le même point 1.1.10. L’aide pédagogique les sépare désormais clairement.</p>
+  </div>
+  <div class="help-section"><h3>Illustration technique correspondante</h3><div class="tech-gallery">${v89ImgCard(a)}</div></div>`;
+}
+
+function updateHelpNav(){
+  const prev=$("helpPrevBtn"), next=$("helpNextBtn");
+  if(!prev||!next)return;
+  if(!helpContext.f || !helpContext.p){prev.disabled=true;next.disabled=true;return}
+  const arr=[...pointsFor(helpContext.f).keys()];
+  const i=arr.indexOf(helpContext.p);
+  prev.disabled=i<=0;
+  next.disabled=i<0 || i>=arr.length-1;
+  prev.title=prev.disabled?"Premier point de la fonction":"Afficher le point précédent";
+  next.title=next.disabled?"Dernier point de la fonction":"Afficher le point suivant";
+}
+
+function helpMovePoint(dir){
+  if(!helpContext.f||!helpContext.p)return;
+  const arr=[...pointsFor(helpContext.f).keys()];
+  const i=arr.indexOf(helpContext.p);
+  const ni=i+dir;
+  if(ni<0||ni>=arr.length)return;
+  showPointHelp(helpContext.f,arr[ni]);
+  const box=document.querySelector("#helpModal .modal-box");
+  if(box) box.scrollTo({top:0,behavior:"smooth"});
+}
+
+function robustJumpPoint(dir){
+  const arr=visiblePointEntries();
+  if(!arr.length)return;
+  const ids=arr.map(x=>x[0]);
+  const rows=[...document.querySelectorAll("#pointList .point-row[data-point]")];
+  if(!rows.length)return;
+
+  let currentIndex=0;
+  if(activePointAnchor && ids.includes(activePointAnchor)){
+    currentIndex=ids.indexOf(activePointAnchor);
+  }else{
+    const refTop=140;
+    let best=Infinity;
+    rows.forEach((el,idx)=>{
+      const d=Math.abs(el.getBoundingClientRect().top-refTop);
+      if(d<best){best=d;currentIndex=idx}
+    });
+  }
+  const targetIndex=Math.max(0,Math.min(ids.length-1,currentIndex+dir));
+  activePointAnchor=ids[targetIndex];
+  const target=rows[targetIndex] || document.querySelector(`[data-point="${CSS.escape(activePointAnchor)}"]`);
+  if(target) target.scrollIntoView({behavior:"smooth",block:"start"});
+  setTimeout(()=>{activePointAnchor=ids[targetIndex]},50);
+}
+jumpPoint=robustJumpPoint;
+
+const _v89BaseRender = (typeof renderV87Illustrations==="function" ? renderV87Illustrations : renderCorrectIllustrations);
+
+showPointHelp=function(f,p){
+  helpContext={f,p};
+  let pl=pointsFor(f).get(p)||p,h=pointHelpData(f,p,pl),defects=pointDefects(f,p);
+  $("helpKicker").textContent=`Point ${p} — Fonction ${f}`;
+  $("helpTitle").textContent=pl;
+
+  let extra=h.extras.length?`<div class="help-section"><h3>Pièce(s) et organes concernés</h3><div class="help-parts">${h.extras.map(x=>`<div class="help-part"><b>${esc(x.piece)}</b><strong>Rôle :</strong> ${esc(x.role)}<br><strong>Emplacement :</strong> ${esc(x.loc)}</div>`).join("")}</div></div>`:"";
+
+  const illustration=(f==="1" && p==="1.1.10.") ? renderPoint110Help() : _v89BaseRender(pl,h.extras);
+
+  $("helpContent").innerHTML=
+    helpSection("Définition / rôle",h.definition)+
+    illustration+
+    buildUltraTrainingBlock(f,p,pl,h,defects)+
+    extra+
+    helpSection("Où se trouve l’élément ?",h.where)+
+    helpSection("Méthode de contrôle pédagogique",h.method)+
+    helpSection("Signes à surveiller",h.watch)+
+    helpSection("Important","L’illustration sert au repérage. Pour décider d’une défaillance, utiliser le libellé réglementaire applicable et l’état réellement observé.","help-warning");
+  $("helpModal").classList.remove("hidden");
+  updateHelpNav();
+}
+
+const _v89OldDefectHelp = showDefectHelp;
+showDefectHelp=function(k,c){
+  const parts=k.split("|"), f=parts[1], p=parts[2];
+  helpContext={f,p};
+  if(f==="1" && p==="1.1.10."){
+    let d=pointDefects(f,p).find(x=>x.code===c)||data().find(x=>x.code===c);
+    if(!d)return;
+    let h=pointHelpData(f,p,d.point);
+    $("helpKicker").textContent=`Défaillance ${d.code}`;
+    $("helpTitle").textContent=d.desc;
+    $("helpContent").innerHTML=
+      renderPoint110Help()+
+      helpSection("Ce que signifie ce libellé",`Cette défaillance appartient au point 1.1.10. Il faut identifier si elle concerne l’assistance de freinage ou le maître-cylindre, qui sont deux organes distincts.`)+
+      helpSection("Ce qu’il faut vérifier",h.method)+
+      helpSection("Gravité dans le référentiel",d.severity||"Non renseignée");
+    $("helpModal").classList.remove("hidden");
+    updateHelpNav();
+    return;
+  }
+  _v89OldDefectHelp(k,c);
+  updateHelpNav();
 }
 
 renderResumeBanner();trainingModeChanged();
