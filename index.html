@@ -1,3 +1,4 @@
+<!-- V8.8 GitHub robuste : recherche automatique des illustrations dans assets/ ou à la racine -->
 <!-- Version GitHub : illustrations externalisées dans /assets pour réduire la taille de index.html -->
 <!doctype html>
 <html lang="fr">
@@ -603,12 +604,12 @@ showDefectHelp=function(k,c){let [ref,f,p]=k.split("|"),d=pointDefects(f,p).find
 
 
 const TECH_IMAGES = {
-  brake: {title:"Freinage — vue éclatée", subtitle:"Disque, étrier, plaquettes, support et flexible", note:"Illustration pédagogique type manuel atelier. Elle aide à repérer l’organe et ses éléments principaux.", src:'illustration_01.webp'},
-  steering: {title:"Direction — vue éclatée", subtitle:"Crémaillère, biellettes, rotules, colonne et porte-fusée", note:"Le cartouche véhicule montre aussi l’emplacement général sur le train avant.", src:'illustration_02.webp'},
-  suspension: {title:"Suspension / train roulant — vue éclatée", subtitle:"Jambe de force, ressort, triangle, rotule, biellette et moyeu", note:"Utile pour les points liés à la suspension, aux liaisons au sol et à certains organes de train avant.", src:'illustration_03.webp'},
-  headlight: {title:"Éclairage — projecteur / phare", subtitle:"Boîtier, glace, module LED/ampoule, couvercles et connecteur", note:"Le petit encart véhicule localise le projecteur sur l’avant du véhicule.", src:'illustration_04.webp'},
-  exhaust: {title:"Pollution / échappement — vue d’ensemble", subtitle:"Collecteur, sonde lambda, catalyseur, FAP, tube et silencieux", note:"L’encart localise la ligne d’échappement sous le véhicule pour aider au repérage.", src:'illustration_05.webp'},
-  plates: {title:"Plaques d’immatriculation — emplacement", subtitle:"Montage avant et arrière avec zones de fixation", note:"Cette planche sert aussi de localisation : plaque avant + plaque arrière avec zones de montage.", src:'illustration_06.webp'}
+  brake: {title:"Freinage — vue éclatée", subtitle:"Disque, étrier, plaquettes, support et flexible", note:"Illustration pédagogique type manuel atelier. Elle aide à repérer l’organe et ses éléments principaux.", src:'assets/illustration_01.webp'},
+  steering: {title:"Direction — vue éclatée", subtitle:"Crémaillère, biellettes, rotules, colonne et porte-fusée", note:"Le cartouche véhicule montre aussi l’emplacement général sur le train avant.", src:'assets/illustration_02.webp'},
+  suspension: {title:"Suspension / train roulant — vue éclatée", subtitle:"Jambe de force, ressort, triangle, rotule, biellette et moyeu", note:"Utile pour les points liés à la suspension, aux liaisons au sol et à certains organes de train avant.", src:'assets/illustration_03.webp'},
+  headlight: {title:"Éclairage — projecteur / phare", subtitle:"Boîtier, glace, module LED/ampoule, couvercles et connecteur", note:"Le petit encart véhicule localise le projecteur sur l’avant du véhicule.", src:'assets/illustration_04.webp'},
+  exhaust: {title:"Pollution / échappement — vue d’ensemble", subtitle:"Collecteur, sonde lambda, catalyseur, FAP, tube et silencieux", note:"L’encart localise la ligne d’échappement sous le véhicule pour aider au repérage.", src:'assets/illustration_05.webp'},
+  plates: {title:"Plaques d’immatriculation — emplacement", subtitle:"Montage avant et arrière avec zones de fixation", note:"Cette planche sert aussi de localisation : plaque avant + plaque arrière avec zones de montage.", src:'assets/illustration_06.webp'}
 };
 function technicalAssetKeys(text, extras=[]){
   const extraText=(extras||[]).map(x=>[(x.piece||''),(x.role||''),(x.loc||'')].join(' ')).join(' ');
@@ -631,12 +632,12 @@ function renderPart3DGallery(pl, extras=[]){
 
 
 const ADV_TECH_IMAGES = {
-  plates: {title:"Plaques d’immatriculation — emplacement avant / arrière", subtitle:"Localisation illustrée sur le véhicule", src:'illustration_07.webp', note:"Planche pédagogique montrant directement la plaque avant et la plaque arrière sur le véhicule."},
-  brake: {title:"Frein avant — localisation + vue éclatée", subtitle:"Disque, plaquettes et étrier", src:'illustration_08.webp', note:"L’illustration montre à la fois où se situe l’organe sur le véhicule et les principales pièces du frein avant."},
-  steering: {title:"Direction — localisation + organes principaux", subtitle:"Crémaillère, colonne et biellettes", src:'illustration_09.webp', note:"La zone de direction est mise en évidence sur le train avant avec ses principaux composants."},
-  suspension: {title:"Essieux / train roulant / suspension — localisation illustrée", subtitle:"Train avant, suspension, moyeu et bras", src:'illustration_10.webp', note:"Cette planche sert pour les points liés aux essieux, au train roulant, à la suspension, aux roues et à certains organes associés."},
-  headlight: {title:"Éclairage — projecteur avant", subtitle:"Localisation sur le véhicule et organes du phare", src:'illustration_11.webp', note:"Le projecteur est repéré sur le véhicule, puis détaillé dans une illustration technique de ses principaux sous-ensembles."},
-  exhaust: {title:"Pollution / échappement — localisation illustrée", subtitle:"Ligne d’échappement, catalyseur, FAP, silencieux", src:'illustration_12.webp', note:"La ligne d’échappement est visualisée sous le véhicule pour un repérage plus juste que le schéma générique."}
+  plates: {title:"Plaques d’immatriculation — emplacement avant / arrière", subtitle:"Localisation illustrée sur le véhicule", src:'assets/illustration_07.webp', note:"Planche pédagogique montrant directement la plaque avant et la plaque arrière sur le véhicule."},
+  brake: {title:"Frein avant — localisation + vue éclatée", subtitle:"Disque, plaquettes et étrier", src:'assets/illustration_08.webp', note:"L’illustration montre à la fois où se situe l’organe sur le véhicule et les principales pièces du frein avant."},
+  steering: {title:"Direction — localisation + organes principaux", subtitle:"Crémaillère, colonne et biellettes", src:'assets/illustration_09.webp', note:"La zone de direction est mise en évidence sur le train avant avec ses principaux composants."},
+  suspension: {title:"Essieux / train roulant / suspension — localisation illustrée", subtitle:"Train avant, suspension, moyeu et bras", src:'assets/illustration_10.webp', note:"Cette planche sert pour les points liés aux essieux, au train roulant, à la suspension, aux roues et à certains organes associés."},
+  headlight: {title:"Éclairage — projecteur avant", subtitle:"Localisation sur le véhicule et organes du phare", src:'assets/illustration_11.webp', note:"Le projecteur est repéré sur le véhicule, puis détaillé dans une illustration technique de ses principaux sous-ensembles."},
+  exhaust: {title:"Pollution / échappement — localisation illustrée", subtitle:"Ligne d’échappement, catalyseur, FAP, silencieux", src:'assets/illustration_12.webp', note:"La ligne d’échappement est visualisée sous le véhicule pour un repérage plus juste que le schéma générique."}
 };
 function advancedTechKeys(text, extras=[]){
   const extraText=(extras||[]).map(x=>[(x.piece||''),(x.role||''),(x.loc||'')].join(' ')).join(' ');
@@ -832,7 +833,7 @@ const EXACT_TECH_IMAGES = {
   brake_hose: {
     title:"Flexibles de frein — localisation et contrôle",
     subtitle:"Flexible, raccords, fixation, étrier et cheminement près des roues",
-    src:'illustration_13.webp',
+    src:'assets/illustration_13.webp',
     note:"Planche dédiée au flexible de frein. Elle remplace la vue générique du freinage pour ce point."
   }
 };
@@ -931,6 +932,163 @@ showDefectHelp=function(k,c){
     helpSection("Indices possibles",h.watch)+
     helpSection("Gravité dans le référentiel",d.severity||"Non renseignée")+
     helpSection("Important","Une illustration n’est affichée que si elle correspond réellement à la pièce ou à l’ensemble mécanique concerné.","help-warning");
+  $("helpModal").classList.remove("hidden");
+}
+
+
+/* ===== V8.7 — PACKAGE GITHUB ASSETS COMPLET + ILLUSTRATIONS ÉTENDUES ===== */
+const V87_IMAGES = {
+  plates: {title:"Plaques d’immatriculation — localisation avant / arrière", subtitle:"Emplacement et contrôle visuel", src:"assets/plates_locations.webp", note:"Utiliser cette planche pour les points liés aux plaques d’immatriculation, à leur présence, lisibilité et fixation."},
+  identification: {title:"Identification du véhicule — VIN / plaque constructeur / frappe à froid", subtitle:"Repérage des zones d’identification", src:"assets/identification_locations.webp", note:"Planche dédiée aux éléments d’identification : VIN visible, plaque constructeur et numéro de châssis frappé."},
+  brake: {title:"Freinage — disque, plaquettes, étrier", subtitle:"Localisation sur la roue et vue technique", src:"assets/brake_general.webp", note:"Pour les organes de freinage au niveau de la roue : disque, plaquettes, étrier et ensemble de frein visible."},
+  brake_hose: {title:"Flexible de frein — localisation et contrôle", subtitle:"Flexible, raccords et cheminement", src:"assets/brake_hose.webp", note:"Illustration spécifique au flexible de frein. À utiliser en priorité pour éviter toute confusion avec une canalisation rigide."},
+  steering: {title:"Direction — crémaillère, biellettes, rotules", subtitle:"Organes principaux de direction", src:"assets/steering_system.webp", note:"Pour les points concernant la crémaillère, les biellettes, les rotules et les éléments associés à la direction."},
+  axle: {title:"Essieux / train avant — localisation", subtitle:"Repérage global du train roulant", src:"assets/train_essieu.webp", note:"Pour les points généraux d’essieu ou de train roulant quand l’organe exact n’est pas un amortisseur ou un pneu."},
+  suspension: {title:"Suspension — amortisseur, ressort, triangle, moyeu", subtitle:"Vue technique de suspension avant", src:"assets/suspension_general.webp", note:"Pour les organes de suspension et de liaison au sol : amortisseurs, ressorts, triangles, biellettes et pièces associées."},
+  wheel: {title:"Roue / pneu / jante / moyeu", subtitle:"Localisation et éclaté de la roue", src:"assets/wheel_hub.webp", note:"Pour pneus, jantes, boulons, moyeu, certaines fixations et organes directement liés à la roue."},
+  lighting: {title:"Éclairage — projecteur avant", subtitle:"Localisation du phare et organes internes", src:"assets/headlight_system.webp", note:"Pour projecteurs, optiques avant, feux et certains organes d’éclairage apparentés."},
+  exhaust: {title:"Échappement / dépollution", subtitle:"Ligne d’échappement et principaux organes", src:"assets/exhaust_system.webp", note:"Pour ligne d’échappement, catalyseur, FAP, silencieux, sondes et certains points de pollution."},
+  visibility: {title:"Pare-brise / essuie-glaces / lave-glace", subtitle:"Zone de visibilité avant et accessoires", src:"assets/windshield_wipers.webp", note:"Pour pare-brise, balais, bras d’essuie-glace, buses de lave-glace et éléments de visibilité avant."},
+  mirrors: {title:"Rétroviseurs intérieur et extérieurs", subtitle:"Localisation, vues et contrôle", src:"assets/mirrors_system.webp", note:"Pour rétroviseurs, champ de vision, fixation, réglage et état des glaces/boîtiers."},
+  safety: {title:"Sécurité des occupants — ceintures et airbags", subtitle:"Repérage des éléments de sécurité", src:"assets/safety_occupants.webp", note:"Pour ceintures, ancrages, boucles, airbags et certains équipements de sécurité des occupants."},
+  ev: {title:"Véhicule électrique — batterie, câbles HT, prise de charge", subtitle:"Repérage des organes haute tension", src:"assets/ev_high_voltage.webp", note:"Pour batterie de traction, câbles HT, prise de charge et organes spécifiques électriques/hybrides."}
+};
+
+function v87Norm(s){return String(s||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");}
+function v87Text(pl, extras=[]){return v87Norm((pl||"")+" "+(extras||[]).map(e=>[(e.piece||""),(e.role||""),(e.loc||"")].join(" ")).join(" "));}
+function v87Ids(pl, extras=[]){
+  const t=v87Text(pl, extras);
+  const ids=[]; const add=x=>{if(!ids.includes(x)) ids.push(x)};
+
+  if(/plaque(s)? d'?immatriculation|immatriculation/.test(t)) add('plates');
+  if(/vin|numero d'?identification|numero de chassis|numero de serie|plaque constructeur|frappe a froid|identification/.test(t)) add('identification');
+  if(/flexible(s)? de frein/.test(t)) { add('brake_hose'); add('brake'); return ids.slice(0,2); }
+  if(/canalisation rigide|conduite de frein/.test(t)) { add('brake'); return ids.slice(0,2); }
+  if(/disque de frein|plaquette|garniture|etrier|etrier de frein|tambour|maitre cylindre|servofrein|abs|esp|repartiteur|frein/.test(t)) add('brake');
+  if(/cremaillere|direction|biellette de direction|rotule de direction|colonne de direction|boitier de direction|volant|guidon/.test(t)) add('steering');
+  if(/essieu|train roulant/.test(t)) add('axle');
+  if(/amortisseur|ressort|triangle|bras de suspension|rotule de suspension|barre stabilisatrice|biellette de barre|jambe de force|porte fusee/.test(t)) add('suspension');
+  if(/pneumatique|pneu|jante|moyeu|boulon(s)? de roue|ecrou(s)? de roue|roue|roulement de roue/.test(t)) add('wheel');
+  if(/phare|projecteur|optique|feu|clignotant|catadioptre|eclairage/.test(t)) add('lighting');
+  if(/echapp|catalyseur|filtre a particules|fap|silencieux|sonde lambda|pollution|opacite|emission|obd/.test(t)) add('exhaust');
+  if(/pare brise|pare-brise|essuie|lave glace|lave-glace|buse de lave glace|buse de lave-glace|vitrage|visibilite/.test(t)) add('visibility');
+  if(/retroviseur|miroir/.test(t)) add('mirrors');
+  if(/ceinture|airbag|ancrage|boucle|appui tete|appui-tete|pretensionneur|occupant|siege|siege conducteur|siege passager/.test(t)) add('safety');
+  if(/batterie de traction|haute tension|cable ht|cables ht|prise de charge|moteur electrique|electrique|hybride/.test(t)) add('ev');
+
+  // Si aucune image précise n'a été trouvée mais la fonction semble générale, proposer une vue utile.
+  if(!ids.length){
+    if(/identification/.test(t)) add('identification');
+    else if(/visibilite/.test(t)) add('visibility');
+  }
+  return ids.slice(0,2);
+}
+function v87LocationSummary(pl, extras=[]){
+  const t=v87Text(pl, extras);
+  if(/plaque(s)? d'?immatriculation/.test(t)) return "Contrôler l’avant et l’arrière du véhicule pour la présence, la lisibilité et la fixation de la ou des plaques.";
+  if(/vin|plaque constructeur|frappe a froid|identification/.test(t)) return "Contrôler les différentes zones d’identification du véhicule : VIN visible, plaque constructeur et numéro de châssis quand il est prévu.";
+  if(/flexible(s)? de frein|disque|plaquette|etrier|tambour|frein/.test(t)) return "Contrôler au niveau des roues, et selon le point, sur les liaisons hydrauliques et organes du système de freinage.";
+  if(/essieu|train roulant/.test(t)) return "Contrôler le train concerné (avant ou arrière) et les organes visibles associés sous le véhicule et au niveau des roues.";
+  if(/amortisseur|ressort|triangle|bras|rotule de suspension|barre stabilisatrice/.test(t)) return "Contrôler dans le passage de roue et sur le train concerné, au niveau des liaisons entre roue, berceau/train et carrosserie.";
+  if(/pneu|jante|moyeu|roue|boulon/.test(t)) return "Contrôler directement sur la roue concernée : pneumatique, jante, fixations et zone de moyeu.";
+  if(/retroviseur/.test(t)) return "Contrôler les rétroviseurs extérieurs gauche/droite ainsi que le rétroviseur intérieur lorsqu’il est présent.";
+  if(/pare brise|pare-brise|essuie|lave glace|vitrage/.test(t)) return "Contrôler à l’avant du véhicule au niveau du pare-brise, des balais/bras d’essuie-glace et des buses de lave-glace.";
+  if(/phare|projecteur|feu|clignotant|eclairage/.test(t)) return "Contrôler sur les faces avant et arrière, et selon le point sur les côtés du véhicule pour les répétiteurs et catadioptres.";
+  if(/echapp|pollution|opacite|obd|catalyseur|fap|silencieux/.test(t)) return "Contrôler sous le véhicule, dans le compartiment moteur selon l’architecture, et appliquer la méthode de mesure adaptée au carburant/énergie.";
+  if(/ceinture|airbag|ancrage|siege/.test(t)) return "Contrôler dans l’habitacle, sur les places concernées et au niveau des ancrages, boucles et zones d’airbags.";
+  if(/batterie de traction|haute tension|prise de charge|electrique|hybride/.test(t)) return "Contrôler les organes spécifiques électriques sur les zones prévues : prise de charge, câbles HT, batterie de traction et éléments associés.";
+  return "Contrôler visuellement et manuellement la zone concernée sur le véhicule réel en confirmant l’organe exact avant de retenir une défaillance.";
+}
+
+const V88_LEGACY_ASSETS={
+  plates:"illustration_07.webp",
+  brake:"illustration_08.webp",
+  steering:"illustration_09.webp",
+  suspension:"illustration_10.webp",
+  lighting:"illustration_11.webp",
+  exhaust:"illustration_12.webp",
+  brake_hose:"illustration_13.webp"
+};
+function techAssetBase(src){
+  const s=String(src||"").split("?")[0];
+  return s.substring(s.lastIndexOf("/")+1);
+}
+function techAssetCandidates(id,a){
+  const base=techAssetBase(a.src);
+  const legacy=V88_LEGACY_ASSETS[id]||"";
+  const list=[
+    `assets/${base}`,
+    base,
+    `./assets/${base}`,
+    `./${base}`
+  ];
+  if(legacy){list.push(`assets/${legacy}`,legacy,`./assets/${legacy}`,`./${legacy}`)}
+  return [...new Set(list)];
+}
+function techAssetFallback(img){
+  let list=[];
+  try{list=JSON.parse(img.dataset.candidates||"[]")}catch(e){}
+  let i=Number(img.dataset.tryIndex||0)+1;
+  if(i>=list.length){
+    img.onerror=null;
+    img.style.display="none";
+    const fig=img.closest('.tech-figure');
+    if(fig && !fig.querySelector('.asset-missing')){
+      const m=document.createElement('div');
+      m.className='asset-missing';
+      m.style.cssText='padding:24px;text-align:center;color:#7a2e2e;background:#fff5f5;font-weight:700';
+      m.textContent='Illustration introuvable sur GitHub — vérifier le nom du fichier et son emplacement.';
+      fig.appendChild(m);
+    }
+    return;
+  }
+  img.dataset.tryIndex=String(i);
+  img.src=list[i];
+}
+function techAssetImg(id,a){
+  const list=techAssetCandidates(id,a);
+  const candidates=JSON.stringify(list).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  return `<img loading="lazy" data-try-index="0" data-candidates="${candidates}" onerror="techAssetFallback(this)" onclick="openTechImageZoom(this.src,'Illustration technique')" src="${list[0]}" alt="${esc(a.title)}">`;
+}
+
+function renderV87Illustrations(pl, extras=[]){
+  const ids=v87Ids(pl, extras);
+  const intro=`<div class="help-location-note"><strong>Localisation conseillée :</strong> ${esc(v87LocationSummary(pl, extras))}</div>`;
+  if(!ids.length){
+    return intro+`<div class="help-section"><h3>Illustration technique</h3><div class="tech-empty">Aucune illustration spécifique n’est encore rattachée à ce point précis. L’application privilégie l’absence d’image plutôt qu’une illustration trompeuse.</div></div>`;
+  }
+  return intro+`<div class="help-section"><div class="part3d-inline-title"><h3>Illustrations techniques</h3><span class="ultra-badge">Version assets</span></div><div class="tech-gallery">${ids.map(id=>{const a=V87_IMAGES[id];return `<div class="tech-card"><div class="tech-card-head"><h3>${esc(a.title)}</h3><div class="tech-sub">${esc(a.subtitle)}</div></div><div class="tech-card-body"><figure class="tech-figure">${techAssetImg(id,a)}</figure><div class="tech-note">${esc(a.note)}</div><div class="illustration-caption">L’application recherche automatiquement cette image dans <b>assets/</b> puis à la racine du dépôt. Les anciens noms illustration_XX.webp sont également acceptés quand ils existent.</div></div></div>`;}).join('')}</div></div>`;
+}
+showPointHelp=function(f,p){
+  let pl=pointsFor(f).get(p)||p,h=pointHelpData(f,p,pl),defects=pointDefects(f,p);
+  $("helpKicker").textContent=`Point ${p} — Fonction ${f}`;
+  $("helpTitle").textContent=pl;
+  let extra=h.extras.length?`<div class="help-section"><h3>Pièce(s) et organes concernés</h3><div class="help-parts">${h.extras.map(x=>`<div class="help-part"><b>${esc(x.piece)}</b><strong>Rôle :</strong> ${esc(x.role)}<br><strong>Emplacement :</strong> ${esc(x.loc)}</div>`).join("")}</div></div>`:"";
+  $("helpContent").innerHTML=
+    helpSection("Définition / rôle",h.definition)+
+    renderV87Illustrations(pl,h.extras)+
+    buildUltraTrainingBlock(f,p,pl,h,defects)+
+    extra+
+    helpSection("Où se trouve l’élément ?",h.where)+
+    helpSection("Méthode de contrôle pédagogique",h.method)+
+    helpSection("Signes à surveiller",h.watch)+
+    helpSection("Important","Cette version GitHub conserve un dossier assets. Il faut envoyer index.html ET le dossier assets complet dans le dépôt pour que toutes les illustrations s’affichent.","help-warning");
+  $("helpModal").classList.remove("hidden");
+}
+showDefectHelp=function(k,c){
+  let [ref,f,p]=k.split("|"),d=pointDefects(f,p).find(x=>x.code===c)||data().find(x=>x.code===c);
+  if(!d)return;
+  let h=pointHelpData(f,p,d.point);
+  $("helpKicker").textContent=`Défaillance ${d.code}`;
+  $("helpTitle").textContent=d.desc;
+  $("helpContent").innerHTML=
+    renderV87Illustrations(d.point,h.extras)+
+    helpSection("Ce que signifie ce libellé",`Cette défaillance concerne le point « ${d.point} ». Elle doit être retenue uniquement si l’état observé correspond au libellé réglementaire affiché.`)+
+    helpSection("Pièce / zone concernée",h.where)+
+    helpSection("Ce qu’il faut vérifier",h.method)+
+    helpSection("Indices possibles",h.watch)+
+    helpSection("Gravité dans le référentiel",d.severity||"Non renseignée")+
+    helpSection("Important","Les illustrations sont volontairement associées par famille de pièce. Pour une pièce très spécifique, le véhicule réel et le référentiel restent prioritaires.","help-warning");
   $("helpModal").classList.remove("hidden");
 }
 
