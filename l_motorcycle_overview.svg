@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760">
+<rect width="1200" height="760" fill="#fff"/>
+<text x="50" y="65" font-family="Arial" font-size="34" font-weight="700" fill="#153b68">Catégorie L — repérage général motocycle / cyclomoteur</text>
+<text x="50" y="105" font-family="Arial" font-size="20" fill="#566579">Schéma pédagogique : implantation générale, à adapter à la sous-catégorie et au véhicule réel</text>
+<circle cx="330" cy="535" r="120" fill="none" stroke="#17202a" stroke-width="18"/><circle cx="875" cy="535" r="120" fill="none" stroke="#17202a" stroke-width="18"/>
+<path d="M330 535 L520 340 L720 535 L875 535 M520 340 L665 330 L760 450 M520 340 L430 515" fill="none" stroke="#54789f" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M665 330 L785 240 L825 235" fill="none" stroke="#54789f" stroke-width="16" stroke-linecap="round"/>
+<path d="M785 240 L875 535" fill="none" stroke="#54789f" stroke-width="16"/>
+<rect x="530" y="265" width="175" height="75" rx="30" fill="#e6edf5" stroke="#7993ad" stroke-width="3"/>
+<path d="M460 455 C540 430,635 445,720 520" fill="none" stroke="#b8c8d8" stroke-width="16"/>
+<path d="M555 345 L620 430 L695 430" fill="none" stroke="#cf7d14" stroke-width="10"/>
+<text x="185" y="700" font-family="Arial" font-size="20" fill="#333">AR : roue, frein arrière, plaque, feu arrière, transmission selon véhicule</text>
+<text x="695" y="700" font-family="Arial" font-size="20" fill="#333">AV : roue, frein avant, direction, fourche, éclairage</text>
+<text x="465" y="165" font-family="Arial" font-size="22" fill="#174f91">Guidon / commandes</text><line x1="590" y1="175" x2="790" y2="240" stroke="#174f91" stroke-width="3"/>
+<text x="350" y="235" font-family="Arial" font-size="22" fill="#174f91">Réservoir / batterie selon énergie</text><line x1="560" y1="245" x2="610" y2="290" stroke="#174f91" stroke-width="3"/>
+<text x="430" y="590" font-family="Arial" font-size="22" fill="#174f91">Moteur / transmission</text><line x1="570" y1="575" x2="620" y2="455" stroke="#174f91" stroke-width="3"/>
+</svg>

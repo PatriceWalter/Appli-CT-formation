@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760">
+<rect width="1200" height="760" fill="#fff"/>
+<text x="50" y="65" font-family="Arial" font-size="34" font-weight="700" fill="#153b68">Catégorie L — direction / guidon / colonne / fourche</text>
+<text x="50" y="105" font-family="Arial" font-size="20" fill="#566579">Repérage des principaux organes de direction d’un deux-roues</text>
+<circle cx="600" cy="590" r="105" fill="none" stroke="#17202a" stroke-width="16"/>
+<line x1="545" y1="490" x2="505" y2="245" stroke="#54789f" stroke-width="22"/>
+<line x1="650" y1="490" x2="610" y2="245" stroke="#54789f" stroke-width="22"/>
+<rect x="500" y="205" width="120" height="70" rx="20" fill="#dfe8f2" stroke="#6f88a2" stroke-width="3"/>
+<line x1="560" y1="210" x2="560" y2="150" stroke="#26384b" stroke-width="16"/>
+<line x1="380" y1="150" x2="740" y2="150" stroke="#26384b" stroke-width="20" stroke-linecap="round"/>
+<circle cx="560" cy="240" r="25" fill="#cf7d14"/>
+<text x="755" y="158" font-family="Arial" font-size="22" fill="#333">Guidon</text>
+<text x="675" y="248" font-family="Arial" font-size="22" fill="#333">Tête / colonne de direction</text>
+<text x="700" y="405" font-family="Arial" font-size="22" fill="#333">Fourche</text>
+<text x="720" y="590" font-family="Arial" font-size="22" fill="#333">Roue avant</text>
+<path d="M560 240 Q580 340 600 490" fill="none" stroke="#cf7d14" stroke-width="5" stroke-dasharray="12 9"/>
+</svg>

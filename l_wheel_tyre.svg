@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760">
+<rect width="1200" height="760" fill="#fff"/>
+<text x="50" y="65" font-family="Arial" font-size="34" font-weight="700" fill="#153b68">Catégorie L — roue / pneumatique / moyeu</text>
+<circle cx="600" cy="405" r="230" fill="none" stroke="#17202a" stroke-width="45"/>
+<circle cx="600" cy="405" r="155" fill="#f8fafc" stroke="#7a8fa6" stroke-width="12"/>
+<circle cx="600" cy="405" r="60" fill="#dce6ef" stroke="#5f7892" stroke-width="8"/>
+<g stroke="#7a8fa6" stroke-width="8">
+<line x1="600" y1="250" x2="600" y2="345"/><line x1="600" y1="465" x2="600" y2="560"/>
+<line x1="445" y1="405" x2="540" y2="405"/><line x1="660" y1="405" x2="755" y2="405"/>
+<line x1="490" y1="295" x2="555" y2="360"/><line x1="645" y1="450" x2="710" y2="515"/>
+<line x1="710" y1="295" x2="645" y2="360"/><line x1="555" y1="450" x2="490" y2="515"/>
+</g>
+<text x="845" y="270" font-family="Arial" font-size="24" fill="#333">Pneumatique</text><line x1="815" y1="275" x2="775" y2="315" stroke="#174f91" stroke-width="4"/>
+<text x="845" y="390" font-family="Arial" font-size="24" fill="#333">Jante</text><line x1="810" y1="395" x2="755" y2="405" stroke="#174f91" stroke-width="4"/>
+<text x="845" y="510" font-family="Arial" font-size="24" fill="#333">Moyeu / roulement</text><line x1="815" y1="500" x2="660" y2="435" stroke="#174f91" stroke-width="4"/>
+<text x="100" y="700" font-family="Arial" font-size="22" fill="#333">Contrôler avant et arrière selon la configuration : état du pneu, jante, fixation, jeu et roulement.</text>
+</svg>

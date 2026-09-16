@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760">
+<rect width="1200" height="760" fill="#fff"/>
+<text x="50" y="65" font-family="Arial" font-size="34" font-weight="700" fill="#153b68">Catégorie L — suspension avant et arrière</text>
+<rect x="80" y="150" width="500" height="500" rx="22" fill="#fbfcfe" stroke="#d7e0e9" stroke-width="2"/>
+<text x="110" y="195" font-family="Arial" font-size="25" font-weight="700" fill="#153b68">Fourche télescopique — exemple avant</text>
+<line x1="270" y1="260" x2="240" y2="520" stroke="#54789f" stroke-width="28"/>
+<line x1="390" y1="260" x2="360" y2="520" stroke="#54789f" stroke-width="28"/>
+<circle cx="300" cy="535" r="80" fill="none" stroke="#17202a" stroke-width="14"/>
+<rect x="240" y="220" width="160" height="52" rx="15" fill="#dfe8f2" stroke="#6f88a2" stroke-width="3"/>
+<text x="120" y="610" font-family="Arial" font-size="21" fill="#333">Contrôler fixation, jeu, fuite, déformation, état des tubes et fonctionnement.</text>
+<rect x="620" y="150" width="500" height="500" rx="22" fill="#fbfcfe" stroke="#d7e0e9" stroke-width="2"/>
+<text x="650" y="195" font-family="Arial" font-size="25" font-weight="700" fill="#153b68">Amortisseur arrière — exemple</text>
+<line x1="790" y1="260" x2="900" y2="520" stroke="#54789f" stroke-width="20"/>
+<path d="M805 280 C900 310,785 350,880 390 C975 430,860 470,900 500" fill="none" stroke="#cf7d14" stroke-width="14"/>
+<circle cx="785" cy="250" r="22" fill="#26384b"/><circle cx="905" cy="525" r="22" fill="#26384b"/>
+<text x="675" y="610" font-family="Arial" font-size="21" fill="#333">Architecture variable : mono-amortisseur, double amortisseur, bras oscillant, etc.</text>
+</svg>

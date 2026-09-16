@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="180" viewBox="0 0 640 180">
+<rect width="640" height="180" rx="18" fill="#f3f5f8"/>
+<rect x="44" y="26" width="552" height="128" rx="14" fill="#ffffff" stroke="#0f172a" stroke-width="4"/>
+<rect x="44" y="26" width="52" height="128" rx="14" fill="#184da0"/>
+<text x="70" y="70" font-family="Arial" font-size="30" font-weight="700" fill="#ffffff" text-anchor="middle">F</text>
+<circle cx="70" cy="110" r="18" fill="#ffd44d"/>
+<text x="320" y="108" font-family="Arial" font-size="52" font-weight="800" fill="#1f2937" text-anchor="middle" letter-spacing="4">AA-123-AA</text>
+<rect x="544" y="26" width="52" height="128" rx="14" fill="#184da0"/>
+<text x="570" y="76" font-family="Arial" font-size="22" font-weight="700" fill="#ffffff" text-anchor="middle">67</text>
+<text x="570" y="110" font-family="Arial" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">Bas-Rhin</text>
+</svg>

@@ -132,6 +132,19 @@ font-size:11px;background:#fff;margin:2px}
 .search-empty{padding:24px;text-align:center;border:1px dashed #cfd8e2;border-radius:12px;color:#667085;background:#fafcff}
 @media(max-width:760px){.defect-search-row{grid-template-columns:1fr}.defect-result{grid-template-columns:1fr}.defect-result-actions{justify-content:flex-start}}
 
+
+/* ===== V9.2 — Cohérence L / simplification identification / sauvegarde ===== */
+.plate-entry{display:grid;grid-template-columns:minmax(0,1fr) 210px;gap:14px;align-items:end}
+.plate-sample{display:flex;align-items:center;justify-content:center;border:1px solid #d9e2eb;border-radius:14px;padding:8px;background:#fbfcfe}
+.plate-sample img{max-width:100%;height:auto;display:block}
+.plate-note{font-size:12px;color:#667085;line-height:1.45;margin-top:6px}
+.ident-mini{grid-template-columns:1fr 1fr !important}
+.hidden-fieldpack{display:none!important}
+@media(max-width:760px){
+  .plate-entry{grid-template-columns:1fr}
+  .ident-mini{grid-template-columns:1fr !important}
+}
+
 </style>
 </head>
 <body>
@@ -188,7 +201,7 @@ font-size:11px;background:#fff;margin:2px}
       <div id="wizard4" class="wizard-page">
         <div class="wizard-box">
           <h2>4. Motorisation</h2>
-          <p class="lead">La motorisation sert à masquer les points qui ne concernent pas le véhicule.</p>
+          <p id="wizardEnergyLead" class="lead">La motorisation sert à masquer les points qui ne concernent pas le véhicule.</p>
           <label for="energy">Énergie</label>
           <select id="energy" class="wizard-select" onchange="wizardEnergyChanged()">
             <option value="">— Sélectionner —</option><option value="ESS">Essence</option><option value="DIE">Diesel</option><option value="GPL">GPL / GNV / GNL / hydrogène</option><option value="HYB_ESS">Hybride essence</option><option value="HYB_DIE">Hybride diesel</option><option value="ELEC">Électrique</option><option value="AUTRE">Autre / sans filtre énergétique</option>
@@ -200,22 +213,30 @@ font-size:11px;background:#fff;margin:2px}
       <div id="wizard5" class="wizard-page">
         <div class="wizard-box">
           <h2>5. Identification du véhicule</h2>
-          <p class="lead">Dernière étape avant le contrôle. Les informations complémentaires restent facultatives.</p>
-          <div class="wizard-ident">
-            <div><label>Immatriculation</label><input id="immat" autocomplete="off" inputmode="text"></div>
-            <div><label>Marque</label><input id="marque" autocomplete="off"></div>
-            <div><label>Modèle</label><input id="modele" autocomplete="off"></div>
-            <div><label>VIN / N° de série</label><input id="vin" autocomplete="off"></div>
-            <div><label>Kilométrage</label><input id="km" type="number" min="0" inputmode="numeric"></div>
-            <div><label>1ère mise en circulation</label><input id="mise" type="date"></div>
-          </div>
-          <details class="control-details">
-            <summary>Informations complémentaires du contrôle</summary>
-            <div class="grid g2">
-              <div><label>Date / heure du contrôle</label><input id="date" type="datetime-local"></div>
-              <div><label>Contrôleur / stagiaire</label><input id="ctrl" autocomplete="off"></div>
+          <p class="lead">Dernière étape avant le contrôle. L’identification a été simplifiée : plaque et VIN uniquement.</p>
+          <div class="wizard-ident ident-mini">
+            <div class="plate-entry" style="grid-column:1 / -1">
+              <div>
+                <label>Immatriculation</label>
+                <input id="immat" autocomplete="off" inputmode="text" placeholder="Ex. AA-123-AA">
+                <div class="plate-note">Saisissez la plaque telle qu’elle apparaît sur le véhicule.</div>
+              </div>
+              <div class="plate-sample">
+                <img src="assets/plate_input_sample.svg" alt="Exemple visuel de plaque d'immatriculation">
+              </div>
             </div>
-          </details>
+            <div><label>VIN / N° de série</label><input id="vin" autocomplete="off" placeholder="17 caractères si disponible"></div>
+          </div>
+          <div class="hidden-fieldpack" aria-hidden="true">
+            <input id="marque" autocomplete="off">
+            <input id="modele" autocomplete="off">
+            <input id="km" type="number" min="0" inputmode="numeric">
+            <input id="mise" type="date">
+          </div>
+          <div class="hidden-fieldpack" aria-hidden="true">
+            <input id="date" type="datetime-local">
+            <input id="ctrl" autocomplete="off">
+          </div>
           <div id="wizardSummary" class="wizard-summary"></div>
           <details class="ref-details"><summary>Informations sur le référentiel utilisé</summary><div id="sourceNotice" class="notice warn"></div></details>
           <div class="wizard-nav"><button class="btn secondary" type="button" onclick="wizardGo(4)">← Précédent</button><button class="btn primary" type="button" onclick="start()">COMMENCER LE CONTRÔLE →</button></div>
@@ -239,7 +260,7 @@ font-size:11px;background:#fff;margin:2px}
       <div class="dashboard-tools"><label class="switch-line"><input id="hideDone" type="checkbox" onchange="renderCats()"> Masquer les fonctions terminées</label><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn primary defect-search-launch" type="button" onclick="openDefectSearch()">🔎 Rechercher une défaillance</button><button class="btn secondary" type="button" onclick="showOnlyNextFunction()">▶ Fonction suivante à contrôler</button></div></div>
       <div class="function-legend"><span class="lg-todo">● À vérifier</span><span class="lg-progress">● En cours</span><span class="lg-done">✓ Terminée — estompée</span></div>
       <div id="catGrid" class="category-grid"></div>
-      <div class="actions"><div class="save-state" id="saveState">Sauvegarde automatique active</div><button class="btn success" onclick="report()">📋 TERMINER LE CONTRÔLE</button></div>
+      <div class="actions"><div><div class="save-state" id="saveState">Sauvegarde automatique active</div><div style="display:flex;gap:7px;flex-wrap:wrap;margin-top:7px"><button class="btn secondary" type="button" onclick="manualSaveSession()">💾 Sauvegarder maintenant</button><button class="btn secondary" type="button" onclick="testSavedSession()">✓ Tester la sauvegarde</button></div></div><button class="btn success" onclick="report()">📋 TERMINER LE CONTRÔLE</button></div>
     </div>
   </section>
 
@@ -1542,6 +1563,167 @@ function openSearchResult(f,p,code){
   setTimeout(()=>{const el=document.querySelector(`#pointList .point-row[data-point="${CSS.escape(p)}"]`);if(el){el.scrollIntoView({behavior:"smooth",block:"center"});el.style.outline="3px solid #4f8ad9";el.style.outlineOffset="3px";setTimeout(()=>{el.style.outline="";el.style.outlineOffset=""},2200)}},120);
 }
 document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!$("defectSearchModal")?.classList.contains("hidden"))closeDefectSearch()});
+
+
+/* ===== V9.2 — Cohérence Catégorie L / sauvegarde robuste ===== */
+const STORAGE_SESSION_BACKUP="ct_v8_session_backup";
+const L_ENERGY_MOTO=[["ESS","Essence"],["ELEC","Électrique"],["AUTRE","Autre / sans filtre énergétique"]];
+const L_ENERGY_QUAD=[["ESS","Essence"],["DIE","Diesel"],["ELEC","Électrique"],["AUTRE","Autre / sans filtre énergétique"]];
+const VL_ENERGY_OPTIONS=[["ESS","Essence"],["DIE","Diesel"],["GPL","GPL / GNV / GNL / hydrogène"],["HYB_ESS","Hybride essence"],["HYB_DIE","Hybride diesel"],["ELEC","Électrique"],["AUTRE","Autre / sans filtre énergétique"]];
+function lNeedsLayout(cat){return cat==="L2e"||cat==="L5e"}
+function getEnergyOptionsForCurrentRef(){if($("ref").value!=="L")return VL_ENERGY_OPTIONS;let c=$("lcat").value||$("vehicleClass").value;return(c==="L6e"||c==="L7e")?L_ENERGY_QUAD:L_ENERGY_MOTO}
+function populateEnergyOptions(){let e=$("energy");if(!e)return;let current=e.value,opts=getEnergyOptionsForCurrentRef();e.innerHTML='<option value="">— Sélectionner —</option>'+opts.map(o=>`<option value="${o[0]}">${o[1]}</option>`).join("");if(opts.some(o=>o[0]===current))e.value=current;let lead=$("wizardEnergyLead");if(lead){if($("ref").value==="L"){let cat=$("lcat").value||$("vehicleClass").value;lead.textContent=(cat==="L6e"||cat==="L7e")?"Choisissez la motorisation cohérente avec la catégorie L sélectionnée. Pour L6e/L7e : essence, diesel, électrique ou autre.":"Choisissez la motorisation cohérente avec la catégorie L sélectionnée. Les options hybrides ne sont pas proposées pour cette section."; } else {lead.textContent="La motorisation sert à masquer les points qui ne concernent pas le véhicule.";}}}
+function lConfigLabel(cat,layout){if(lNeedsLayout(cat))return layout==="2F1R"?"2 roues AV / 1 AR":"1 roue AV / 2 AR";return "Aucune configuration complémentaire requise"}
+function cleanLUsage(){if($("usage"))$("usage").value="STD"}
+renderWizardSummary=function(){let mode=$("ref").value,cat=mode==="VL"?($("vlBase").value==="M1"?"M1 — Transport de personnes":$("vlBase").value==="N1"?"N1 — Transport de marchandises ≤ 3,5 t":"Tous véhicules VL"):(L_LABELS[$("lcat").value]||"—");let conf=mode==="VL"?usageLabel($("usage").value):lConfigLabel($("lcat").value,$("lLayout").value);let confLabel=mode==="VL"?"Usage du véhicule":"Configuration catégorie L";$("wizardSummary").innerHTML=`<div><span>Référentiel</span><b>${mode==="VL"?"Véhicule léger":"Moto / catégorie L"}</b></div><div><span>Catégorie</span><b>${esc(cat||"—")}</b></div><div><span>${esc(confLabel)}</span><b>${esc(conf||"—")}</b></div><div><span>Motorisation</span><b>${esc(ENERGY_LABELS[$("energy").value]||"—")}</b></div>`}
+buildConfigStep=function(){let mode=$("ref").value,field=$("wizardConfigField"),lead=$("wizardConfigLead");if(mode==="VL"){lead.textContent="Choisissez l’usage du véhicule. Les fonctions spéciales ne seront ajoutées que si vous les sélectionnez.";field.innerHTML=`<label for="wizardUsage">Usage du véhicule</label><select id="wizardUsage" class="wizard-select" onchange="wizardConfigChanged()"><option value="">— Sélectionner —</option><option value="STD">Standard</option><option value="DEPAN">Dépannage</option><option value="SANIT">Sanitaire</option><option value="ECOLE">École de conduite</option><option value="TAXI">Taxi</option><option value="VTC">VTC</option></select>`}else{cleanLUsage();let cat=$("lcat").value;if(lNeedsLayout(cat)){lead.textContent="Pour cette catégorie L, précisez uniquement la disposition des roues utile aux localisations et au repérage.";field.innerHTML=`<label for="wizardLayout">Disposition des roues</label><select id="wizardLayout" class="wizard-select" onchange="wizardConfigChanged()"><option value="">— Sélectionner —</option><option value="1F2R">1 roue avant / 2 roues arrière</option><option value="2F1R">2 roues avant / 1 roue arrière</option></select>`;if($("wizardLayout"))$("wizardLayout").value=$("lLayout").value||"1F2R"}else{lead.textContent="Aucune configuration supplémentaire n’est nécessaire pour cette catégorie L.";field.innerHTML=`<div class="notice">Pour cette catégorie L, vous pouvez continuer directement vers la motorisation.</div><button type="button" class="btn primary" style="width:100%;min-height:52px" onclick="wizardConfigChanged()">Continuer →</button>`}}}
+wizardRefChanged=function(){let mode=$("ref").value;if(!mode)return;$("vehicleClass").value="";$("usage").value="STD";$("lLayout").value="1F2R";populateVehicleClass();populateEnergyOptions();updateSourceNotice();setTimeout(()=>wizardGo(2),120)}
+wizardClassChanged=function(){let v=$("vehicleClass").value;if(!v)return;if($("ref").value==="VL")$("vlBase").value=v;else {$("lcat").value=v;cleanLUsage()}buildConfigStep();populateEnergyOptions();setTimeout(()=>wizardGo(3),120)}
+wizardConfigChanged=function(){if($("ref").value==="VL"){let e=$("wizardUsage");if(!e||!e.value)return;$("usage").value=e.value}else{cleanLUsage();let cat=$("lcat").value;if(lNeedsLayout(cat)){let e=$("wizardLayout");if(!e||!e.value)return;$("lLayout").value=e.value}else{$("lLayout").value="1F2R"}}populateEnergyOptions();setTimeout(()=>wizardGo(4),120)}
+function collectVehicleV92(){return{ref:$("ref").value,immat:$("immat").value.trim(),vin:$("vin").value.trim(),marque:"",modele:"",km:"",energy:$("energy").value,vlBase:$("vlBase").value,usage:$("ref").value==="VL"?$("usage").value:"STD",lcat:$("lcat").value,lLayout:$("lLayout").value,mise:"",date:$("date").value,ctrl:$("ctrl").value.trim()}}
+collectVehicle=collectVehicleV92
+fillVehicleFormFromV=function(){let map={ref:V.ref,immat:V.immat,vin:V.vin,marque:"",modele:"",km:"",energy:V.energy,vlBase:V.vlBase,usage:V.usage,lcat:V.lcat,lLayout:V.lLayout,mise:"",date:V.date,ctrl:V.ctrl};for(let[id,val]of Object.entries(map)){let e=$(id);if(e&&val!=null)e.value=val}populateVehicleClass();if($("vehicleClass"))$("vehicleClass").value=V.ref==="VL"?V.vlBase:V.lcat;populateEnergyOptions();updateSourceNotice()}
+vehicleSummary=function(){let type=V.ref==="VL"?(V.vlBase==="M1"?"M1 — Transport de personnes":V.vlBase==="N1"?"N1 — Transport de marchandises":"VL — Tous")+(V.usage&&V.usage!=="STD"?" / "+usageLabel(V.usage):""):`${L_LABELS[V.lcat]||"Catégorie L"}${lNeedsLayout(V.lcat)?(" / "+lConfigLabel(V.lcat,V.lLayout)):""}`;return `${V.immat||"Véhicule"} — ${type} — ${ENERGY_LABELS[V.energy]||"Énergie non renseignée"}`}
+appLabel=function(d){if(V.ref==="L")return`${L_LABELS[V.lcat]||"Catégorie L"} — ${ENERGY_LABELS[V.energy]||"Énergie non renseignée"}`;let a=[];if(d.m1)a.push("M1");if(d.n1)a.push("N1");if(d.depan)a.push("Dépannage");if(d.sanit)a.push("Sanitaire");if(d.ecole)a.push("École");if(d.taxi)a.push("Taxi");if(d.vtc)a.push("VTC");return a.length?a.join(" / "):"Application spéciale / non renseignée"}
+function compactSessionPayload(payload,stripPhotosOnly=false){const copy=JSON.parse(JSON.stringify(payload));Object.values(copy.S||{}).forEach(st=>(st.selected||[]).forEach(x=>{delete x.photo;if(!stripPhotosOnly&&typeof x.obs==="string"&&x.obs.length>1200)x.obs=x.obs.slice(0,1200)}));return copy}
+function writeSessionPayload(payload){try{const raw=JSON.stringify(payload);localStorage.setItem(STORAGE_SESSION,raw);localStorage.setItem(STORAGE_SESSION_BACKUP,raw);return{ok:true,mode:"full"}}catch(e1){try{const raw2=JSON.stringify(compactSessionPayload(payload,true));localStorage.setItem(STORAGE_SESSION,raw2);localStorage.setItem(STORAGE_SESSION_BACKUP,raw2);return{ok:true,mode:"sans_photos"}}catch(e2){try{const raw3=JSON.stringify(compactSessionPayload(payload,false));localStorage.setItem(STORAGE_SESSION,raw3);localStorage.setItem(STORAGE_SESSION_BACKUP,raw3);return{ok:true,mode:"compact"}}catch(e3){return{ok:false,error:e3}}}}}
+saveSession=function(silent=true){clearTimeout(saveTimer);saveTimer=setTimeout(()=>{const result=writeSessionPayload(serializeSession());let st=$("saveState");if(result.ok){if(st){const suffix=result.mode==="full"?"":result.mode==="sans_photos"?" (photos non sauvegardées localement)":" (version compacte)";st.textContent="✓ Sauvegardé automatiquement à "+new Date().toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit",second:"2-digit"})+suffix}renderResumeBanner();if(!silent)toast(result.mode==="full"?"Contrôle sauvegardé":"Contrôle sauvegardé en version allégée")}else{console.warn(result.error);if(st)st.textContent="⚠ Échec de sauvegarde locale";if(!silent)alert("La sauvegarde locale a échoué. Réessayez sans ajouter trop de photos ou recommencez une session propre.")}},40)}
+loadSaved=function(){try{let a=JSON.parse(localStorage.getItem(STORAGE_SESSION)||"null");if(a)return a}catch(e){}try{return JSON.parse(localStorage.getItem(STORAGE_SESSION_BACKUP)||"null")}catch(e){return null}}
+clearSaved=function(){localStorage.removeItem(STORAGE_SESSION);localStorage.removeItem(STORAGE_SESSION_BACKUP);renderResumeBanner()}
+resumeSaved=function(){let d=loadSaved();if(!d)return;V=d.V||{};S=d.S||{};current=d.current||"";profileSignature=d.profileSignature||signature(V);wizardStep=d.wizardStep||1;activePointAnchor=d.activePointAnchor||"";if($("trainingMode"))$("trainingMode").value=d.trainingMode||"FORMATION";document.body.classList.toggle("exam-mode",trainingMode()==="EXAMEN");fillVehicleFormFromV();let view=d.view||"cats";$("vehicle").classList.add("hidden");$("cats").classList.add("hidden");$("points").classList.add("hidden");if(view==="vehicle"){$("vehicle").classList.remove("hidden");wizardGo(wizardStep||1)}else if(view==="points"&&current){$("cats").classList.remove("hidden");$("vehLabel").textContent=vehicleSummary();renderCats();openCat(current)}else{$("cats").classList.remove("hidden");$("vehLabel").textContent=vehicleSummary();renderCats()}renderResumeBanner();toast("Contrôle repris")}
+window.addEventListener("beforeunload",()=>{try{writeSessionPayload(serializeSession())}catch(e){}})
+populateEnergyOptions();
+
+
+/* ===== V9.3 — AUDIT FINAL : Catégorie L + sauvegarde + identification ===== */
+const L93_IMAGES={
+  overview:{title:"Catégorie L — repérage général",subtitle:"Moto / cyclomoteur : principaux organes",src:"assets/l_motorcycle_overview.svg",note:"Vue générale de repérage pour deux-roues et certains véhicules de catégorie L."},
+  brake_controls:{title:"Catégorie L — commandes de frein",subtitle:"Levier au guidon et/ou pédale",src:"assets/l_brake_controls.svg",note:"Illustration adaptée aux commandes de frein de catégorie L."},
+  steering:{title:"Catégorie L — direction et fourche",subtitle:"Guidon, colonne, tête de direction et fourche",src:"assets/l_steering_fork.svg",note:"Illustration spécifique à la direction d’un deux-roues."},
+  wheel:{title:"Catégorie L — roue / pneumatique / moyeu",subtitle:"Roue avant ou arrière",src:"assets/l_wheel_tyre.svg",note:"Illustration dédiée à la roue et au pneumatique de catégorie L."},
+  suspension:{title:"Catégorie L — suspension",subtitle:"Fourche avant et amortisseur arrière",src:"assets/l_suspension.svg",note:"Illustration de suspension adaptée à une motocyclette."},
+  lighting:{title:"Catégorie L — éclairage",subtitle:"Projecteur avant, feu arrière et clignotants",src:"assets/l_lighting.svg",note:"Illustration spécifique de l’éclairage d’une catégorie L."},
+  exhaust:{title:"Catégorie L — échappement",subtitle:"Collecteur, dispositif de dépollution et silencieux",src:"assets/l_exhaust.svg",note:"Illustration adaptée à une ligne d’échappement de deux-roues."},
+  plate:{title:"Catégorie L — plaque arrière",subtitle:"Plaque et fixation arrière",src:"assets/l_plate_rear.svg",note:"Illustration dédiée à la plaque d’immatriculation arrière des motocyclettes/cyclomoteurs."}
+};
+
+function l93IsTwoOrThreeWheel(){
+  return ["L1e","L2e","L3e","L4e","L5e"].includes(V.lcat);
+}
+function l93Meta(id){return L93_IMAGES[id]||v90ImageMeta(id)}
+function l93Ids(p,pl){
+  const t=searchNorm(pl||"");
+  if(!l93IsTwoOrThreeWheel()){
+    // L6e/L7e : architecture plus proche d'un quadricycle/voiturette.
+    return typeof v90IllustrationIds==="function" ? v90IllustrationIds("L",p,pl,[]) : [];
+  }
+  if(/^0\.1\.1\./.test(p)||/plaque d immatriculation/.test(t))return["plate"];
+  if(/^1\.1\.(1|2)\./.test(p)||/pedale|levier|commande de frein/.test(t))return["brake_controls"];
+  if(/^1\./.test(p))return["brake_controls"];
+  if(/^2\./.test(p))return["steering"];
+  if(/^3\.3\./.test(p))return["overview"];
+  if(/^3\./.test(p))return["overview"];
+  if(/^4\./.test(p))return["lighting"];
+  if(/^5\.1\.|^5\.2\./.test(p))return["wheel"];
+  if(/^5\.3\./.test(p))return["suspension"];
+  if(/^6\.1\.2\./.test(p)||/^8\./.test(p))return["exhaust"];
+  if(/^6\./.test(p)||/^7\./.test(p))return["overview"];
+  return[];
+}
+function l93Location(p,pl){
+  const t=searchNorm(pl||"");
+  if(/^0\.1\.1\./.test(p))return "Sur une motocyclette/cyclomoteur, contrôler la plaque arrière lorsqu’elle est requise. Ne pas appliquer automatiquement la logique plaque avant + arrière d’un VL.";
+  if(/^1\./.test(p))return "Contrôler la commande concernée au guidon et/ou au pied, puis l’organe de frein correspondant à la roue avant ou arrière selon la conception.";
+  if(/^2\./.test(p))return "Contrôler le guidon, la colonne/tête de direction, la fourche et les articulations de direction selon l’architecture du véhicule.";
+  if(/^3\./.test(p))return "Contrôler la visibilité depuis la position de conduite et les dispositifs présents : rétroviseurs, vitrage ou essuie-glace uniquement lorsque le véhicule en est équipé.";
+  if(/^4\./.test(p))return "Contrôler les dispositifs d’éclairage/signalisation réellement présents : avant, arrière et latéraux selon l’équipement.";
+  if(/^5\.1\.|^5\.2\./.test(p))return "Contrôler la ou les roues concernées : avant/arrière sur deux-roues ; adapter la localisation aux tricycles et quadricycles.";
+  if(/^5\.3\./.test(p))return "Contrôler la suspension avant (fourche ou équivalent) et la suspension arrière selon la conception.";
+  if(/^6\.1\.2\./.test(p)||/^8\./.test(p))return "Contrôler la ligne d’échappement et les dispositifs de réduction des nuisances uniquement pour les véhicules thermiques concernés.";
+  return "Adapter la localisation à la sous-catégorie L et à la conception réelle du véhicule.";
+}
+function l93HelpData(f,p,pl){
+  let h=pointHelpData(f,p,pl);
+  if(V.ref!=="L")return h;
+  let method=h.method, where=l93Location(p,pl), definition=h.definition, watch=h.watch;
+  if(/^1\./.test(p))method="Effectuer un contrôle visuel et fonctionnel de la commande et des organes de frein réellement présents. Sur un deux-roues, tenir compte des commandes au guidon et/ou au pied. Rechercher jeu, course anormale, fuite, usure, mauvaise fixation et fonctionnement insuffisant selon le point.";
+  if(/^2\./.test(p))method="Contrôler le guidon, la colonne/tête de direction, la fourche et les liaisons sans appliquer automatiquement une architecture à crémaillère de voiture. Rechercher jeu, point dur, déformation et défaut de fixation.";
+  if(/^5\./.test(p))method="Contrôler la roue, le pneumatique, le moyeu, le roulement ou la suspension réellement concernés. Pour un deux-roues, raisonner principalement en avant/arrière ; pour tricycle/quadricycle, adapter aux roues présentes.";
+  return{...h,where,method,definition,watch};
+}
+function renderL93Illustrations(p,pl){
+  const ids=l93Ids(p,pl);
+  const intro=`<div class="help-location-note"><strong>Localisation Catégorie L :</strong> ${esc(l93Location(p,pl))}</div>`;
+  if(!ids.length)return intro+`<div class="help-section"><h3>Illustration technique</h3><div class="tech-empty">Aucune illustration spécifique fiable n’est affichée pour ce point.</div></div>`;
+  return intro+`<div class="help-section"><div class="part3d-inline-title"><h3>Illustration Catégorie L</h3><span class="ultra-badge">Adaptée au véhicule</span></div><div class="tech-gallery">${ids.map(id=>{let a=l93Meta(id);if(!a)return"";return`<div class="tech-card"><div class="tech-card-head"><h3>${esc(a.title)}</h3><div class="tech-sub">${esc(a.subtitle||"")}</div></div><div class="tech-card-body"><figure class="tech-figure">${techAssetImg(id,a)}</figure><div class="tech-note">${esc(a.note||"")}</div></div></div>`}).join("")}</div></div>`;
+}
+
+const FUNCTION_HELP_L93={
+"0":{title:"Identification — Catégorie L",definition:"Vérification de l’identification et des conditions de présentation du véhicule de catégorie L.",where:"Plaque d’immatriculation lorsqu’elle est requise, numéro d’identification et éléments d’identification présents.",method:"Comparer les identifiants et vérifier lisibilité, présence et fixation. Ne pas appliquer automatiquement les implantations d’un VL.",why:"Garantir l’identification fiable du véhicule contrôlé."},
+"1":{title:"Freinage — Catégorie L",definition:"Contrôle des commandes et organes permettant de ralentir, arrêter et maintenir le véhicule.",where:"Levier(s) au guidon, pédale éventuelle, câbles ou circuit hydraulique, disques/tambours et étriers selon conception.",method:"Contrôle visuel et fonctionnel adapté à l’architecture : commande au guidon et/ou au pied, état des organes, fuite, usure et efficacité selon la méthode applicable.",why:"Le freinage conditionne directement la maîtrise du véhicule."},
+"2":{title:"Direction — Catégorie L",definition:"Contrôle des organes assurant le guidage du véhicule.",where:"Guidon, colonne/tête de direction, fourche, articulations et éléments d’assistance lorsqu’ils existent.",method:"Rechercher jeu, point dur, déformation, mauvaise fixation ou fonctionnement anormal. Ne pas supposer une crémaillère automobile si le véhicule n’en possède pas.",why:"Une direction saine est essentielle à la stabilité et au guidage."},
+"3":{title:"Visibilité — Catégorie L",definition:"Contrôle de la visibilité et des dispositifs réellement équipant le véhicule.",where:"Rétroviseurs, vitrage/pare-brise et essuie-glace seulement lorsqu’ils sont présents.",method:"Vérifier champ de vision, état et fixation des dispositifs présents.",why:"Le conducteur doit conserver une visibilité suffisante."},
+"4":{title:"Éclairage / signalisation — Catégorie L",definition:"Contrôle des feux, dispositifs réfléchissants et équipements électriques applicables.",where:"Avant, arrière et côtés selon les équipements montés.",method:"Vérifier présence, fonctionnement, couleur, fixation et conformité des dispositifs applicables.",why:"Assurer visibilité et signalisation du véhicule."},
+"5":{title:"Essieux, roues, pneus, suspension — Catégorie L",definition:"Contrôle des roues, pneumatiques, moyeux, roulements et suspensions selon la configuration du véhicule.",where:"Avant/arrière sur deux-roues ; adapter aux trois ou quatre roues pour L2e/L5e/L6e/L7e.",method:"Rechercher usure, jeu, déformation, défaut de fixation, fuite ou détérioration.",why:"Ces organes déterminent tenue de route, stabilité et maintien des roues."},
+"6":{title:"Châssis et accessoires — Catégorie L",definition:"Contrôle de la structure et des équipements de carrosserie/carenage présents.",where:"Cadre ou châssis, carrosserie/carenage, réservoir, transmission, support moteur, selle/sièges et ouvrants éventuels.",method:"Contrôle visuel des fissures, déformations, corrosion, fixation et risques de blessure.",why:"La structure doit conserver son intégrité et ses équipements doivent être correctement fixés."},
+"7":{title:"Autre matériel — Catégorie L",definition:"Contrôle des équipements de sécurité et instruments applicables à la catégorie L.",where:"Ceintures/airbags pour véhicules concernés, avertisseur, indicateur de vitesse, compteur, limitation de vitesse selon équipement.",method:"Contrôler uniquement les équipements applicables et réellement requis pour la sous-catégorie.",why:"Ces équipements participent à la sécurité et à l’information du conducteur."},
+"8":{title:"Nuisances — Catégorie L",definition:"Contrôle du bruit, des émissions et pertes de liquides selon la motorisation.",where:"Échappement sur véhicule thermique et zones susceptibles de présenter une fuite.",method:"Appliquer uniquement les contrôles correspondant à l’énergie et à l’équipement du véhicule.",why:"Limiter les nuisances et détecter les anomalies pouvant affecter sécurité ou environnement."}
+};
+const _showFunctionHelp93=showFunctionHelp;
+showFunctionHelp=function(f){
+  if(V.ref!=="L")return _showFunctionHelp93(f);
+  let h=FUNCTION_HELP_L93[f]||FUNCTION_HELP[f];
+  $("helpKicker").textContent="Fonction "+f+" — Catégorie L";
+  $("helpTitle").textContent=h.title;
+  $("helpContent").innerHTML=helpSection("À quoi sert cette fonction ?",h.definition)+renderL93Illustrations("",h.title)+helpSection("Zones générales à examiner",h.where)+helpSection("Principe du contrôle",h.method)+helpSection("Pourquoi c’est important ?",h.why)+helpSection("Important","La méthode doit être adaptée à la sous-catégorie L et à la conception réelle du véhicule. Les architectures automobiles M1/N1 ne doivent pas être transposées automatiquement.","help-warning");
+  $("helpModal").classList.remove("hidden");
+};
+
+const _showPointHelp93=showPointHelp;
+showPointHelp=function(f,p){
+  if(V.ref!=="L")return _showPointHelp93(f,p);
+  helpContext={f,p};
+  let pl=pointsFor(f).get(p)||p,h=l93HelpData(f,p,pl),defects=pointDefects(f,p);
+  $("helpKicker").textContent=`Point ${p} — Catégorie L`;
+  $("helpTitle").textContent=pl;
+  $("helpContent").innerHTML=helpSection("Définition / rôle",h.definition)+renderL93Illustrations(p,pl)+buildUltraTrainingBlock(f,p,pl,h,defects)+helpSection("Où se trouve l’élément ?",h.where)+helpSection("Méthode de contrôle pédagogique",h.method)+helpSection("Signes à surveiller",h.watch)+helpSection("Important","Cette aide est spécifique à la catégorie L. Elle évite volontairement de reprendre une architecture automobile lorsqu’elle n’est pas pertinente.","help-warning");
+  $("helpModal").classList.remove("hidden");
+  if(typeof updateHelpNav==="function")updateHelpNav();
+};
+
+function manualSaveSession(){
+  const result=writeSessionPayload(serializeSession());
+  if(result.ok){
+    let d=loadSaved();
+    let label=result.mode==="full"?"Sauvegarde complète":"Sauvegarde allégée";
+    if($("saveState"))$("saveState").textContent=`✓ ${label} effectuée à ${new Date().toLocaleTimeString("fr-FR")}`;
+    renderResumeBanner();
+    alert("La session a bien été enregistrée dans ce navigateur.");
+  }else alert("Échec de la sauvegarde locale.");
+}
+function testSavedSession(){
+  const d=loadSaved();
+  if(!d){alert("Aucune session sauvegardée n’a été retrouvée.");return}
+  const points=Object.keys(d.S||{}).length;
+  const plate=d.V?.immat||"sans immatriculation";
+  alert(`Sauvegarde retrouvée : ${plate}\n${points} point(s) avec état enregistré.\nDernière sauvegarde : ${d.savedAt?new Date(d.savedAt).toLocaleString("fr-FR"):"date inconnue"}`);
+}
+
+// Initialisation : date interne automatique, sans champs inutiles visibles.
+if($("date")&&!$("date").value)setNow();
+
+
+const _buildReportPre93=buildReportPro;
+buildReportPro=function(){
+  _buildReportPre93();
+  // Nettoyage de présentation : l'identification affichée reste plaque + VIN.
+  const rc=$("reportContent");
+  if(!rc)return;
+  rc.querySelectorAll(".grid.g3 > div").forEach(div=>{
+    const txt=(div.textContent||"").trim();
+    if(/^Marque \/ modèle|^Kilométrage|^1ère mise en circulation|^Contrôleur \/ stagiaire/.test(txt))div.remove();
+  });
+};
 
 renderResumeBanner();trainingModeChanged();
 </script>

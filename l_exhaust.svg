@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760">
+<rect width="1200" height="760" fill="#fff"/>
+<text x="50" y="65" font-family="Arial" font-size="34" font-weight="700" fill="#153b68">Catégorie L — échappement / nuisances</text>
+<path d="M180 255 C340 250,360 350,470 390 C590 435,650 455,800 450" fill="none" stroke="#77899b" stroke-width="30" stroke-linecap="round"/>
+<rect x="790" y="380" width="270" height="140" rx="60" fill="#d7e0e8" stroke="#65798e" stroke-width="5"/>
+<rect x="520" y="390" width="155" height="90" rx="35" fill="#dfe8f2" stroke="#6f88a2" stroke-width="4"/>
+<text x="170" y="215" font-family="Arial" font-size="22" fill="#333">Sortie moteur / collecteur</text>
+<text x="505" y="535" font-family="Arial" font-size="22" fill="#333">Catalyseur / dispositif selon véhicule</text>
+<text x="825" y="565" font-family="Arial" font-size="22" fill="#333">Silencieux</text>
+<text x="115" y="650" font-family="Arial" font-size="22" fill="#333">Contrôler fixation, fuite, détérioration, bruit et dispositif de réduction des émissions lorsque applicable.</text>
+</svg>
