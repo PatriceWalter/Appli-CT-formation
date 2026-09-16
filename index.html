@@ -145,6 +145,124 @@ font-size:11px;background:#fff;margin:2px}
   .ident-mini{grid-template-columns:1fr !important}
 }
 
+
+/* ===== V9.4 — Plaque style Oscaro ===== */
+.plate-entry{
+  display:block;
+  grid-column:1 / -1;
+}
+.plate-oscaro-wrap{
+  margin-top:8px;
+  max-width:760px;
+}
+.plate-oscaro{
+  display:grid;
+  grid-template-columns:58px minmax(0,1fr) 78px;
+  align-items:stretch;
+  min-height:76px;
+  background:#fff;
+  border:3px solid #111827;
+  border-radius:14px;
+  overflow:hidden;
+  box-shadow:0 8px 22px rgba(17,24,39,.08);
+}
+.plate-band{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  background:#184da0;
+  color:#fff;
+  user-select:none;
+}
+.plate-band-left{
+  font-weight:900;
+  font-size:26px;
+  letter-spacing:.5px;
+  position:relative;
+}
+.plate-band-left::after{
+  content:"";
+  width:18px;height:18px;border-radius:50%;
+  background:#ffd449;
+  margin-top:6px;
+}
+.plate-band-right{
+  gap:2px;
+  font-weight:800;
+}
+.plate-band-right b{font-size:22px;line-height:1}
+.plate-band-right small{font-size:11px;line-height:1.15;text-align:center;padding:0 4px}
+.plate-input-wrap{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(180deg,#ffffff 0%,#fafbfc 100%);
+  padding:0 10px;
+}
+#immat.plate-input{
+  border:none !important;
+  box-shadow:none !important;
+  outline:none !important;
+  background:transparent !important;
+  width:100%;
+  height:100%;
+  text-align:center;
+  text-transform:uppercase;
+  font-size:clamp(24px,3.2vw,38px);
+  font-weight:900;
+  letter-spacing:2.5px;
+  color:#17202a;
+  padding:0 8px;
+}
+#immat.plate-input::placeholder{
+  color:#8b95a3;
+  letter-spacing:1.5px;
+}
+.plate-oscaro:focus-within{
+  border-color:#2563eb;
+  box-shadow:0 0 0 4px rgba(37,99,235,.16), 0 8px 22px rgba(17,24,39,.08);
+}
+.plate-hint{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-top:8px;
+  color:#667085;
+  font-size:12px;
+  line-height:1.45;
+}
+.plate-hint::before{
+  content:"⌨";
+  font-size:15px;
+}
+@media(max-width:760px){
+  .plate-oscaro{
+    grid-template-columns:48px minmax(0,1fr) 60px;
+    min-height:64px;
+    border-radius:12px;
+  }
+  #immat.plate-input{
+    font-size:clamp(18px,6vw,28px);
+    letter-spacing:1.5px;
+  }
+  .plate-band-right b{font-size:18px}
+  .plate-band-right small{font-size:9px}
+}
+
+
+/* ===== V9.5 — Plaques SIV + anciennes FNI ===== */
+.plate-mode-row{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 10px}
+.plate-mode-btn{border:1px solid #cbd5e1;background:#fff;color:#334155;border-radius:999px;padding:7px 12px;font-size:12px;font-weight:800;cursor:pointer}
+.plate-mode-btn.active{border-color:#2563eb;background:#eff6ff;color:#174ea6;box-shadow:0 0 0 3px rgba(37,99,235,.10)}
+.plate-oscaro.mode-fni{grid-template-columns:minmax(0,1fr)}
+.plate-oscaro.mode-fni .plate-band{display:none}
+.plate-oscaro.mode-fni .plate-input-wrap{background:#fff}
+.plate-oscaro.mode-fni #immat.plate-input{color:#111827;letter-spacing:2px}
+.plate-format-note{margin-top:6px;font-size:12px;color:#667085;line-height:1.45}
+.plate-example-list{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+.plate-example{padding:4px 8px;border-radius:999px;background:#f1f5f9;border:1px solid #d8e0e8;font-size:11px;font-weight:800;color:#475569}
+
 </style>
 </head>
 <body>
@@ -215,14 +333,27 @@ font-size:11px;background:#fff;margin:2px}
           <h2>5. Identification du véhicule</h2>
           <p class="lead">Dernière étape avant le contrôle. L’identification a été simplifiée : plaque et VIN uniquement.</p>
           <div class="wizard-ident ident-mini">
-            <div class="plate-entry" style="grid-column:1 / -1">
-              <div>
-                <label>Immatriculation</label>
-                <input id="immat" autocomplete="off" inputmode="text" placeholder="Ex. AA-123-AA">
-                <div class="plate-note">Saisissez la plaque telle qu’elle apparaît sur le véhicule.</div>
+            <div class="plate-entry">
+              <label>Immatriculation</label>
+              <div class="plate-mode-row" role="group" aria-label="Format d'immatriculation">
+                <button id="plateModeAuto" class="plate-mode-btn active" type="button" onclick="setPlateMode('AUTO')">Détection automatique</button>
+                <button id="plateModeSiv" class="plate-mode-btn" type="button" onclick="setPlateMode('SIV')">Plaque actuelle SIV</button>
+                <button id="plateModeFni" class="plate-mode-btn" type="button" onclick="setPlateMode('FNI')">Ancienne plaque FNI</button>
               </div>
-              <div class="plate-sample">
-                <img src="assets/plate_input_sample.svg" alt="Exemple visuel de plaque d'immatriculation">
+              <div class="plate-oscaro-wrap">
+                <div id="plateVisual" class="plate-oscaro" onclick="document.getElementById('immat').focus()">
+                  <div class="plate-band plate-band-left">F</div>
+                  <div class="plate-input-wrap">
+                    <input id="immat" class="plate-input" autocomplete="off" inputmode="text" placeholder="AA-123-AA ou 1234 AB 67" maxlength="14" oninput="formatPlateInput(this)">
+                  </div>
+                  <div class="plate-band plate-band-right"><b id="plateDept">67</b><small>Département</small></div>
+                </div>
+              </div>
+              <div id="plateFormatNote" class="plate-format-note">Mode automatique : saisissez une plaque actuelle ou une ancienne immatriculation française.</div>
+              <div class="plate-example-list">
+                <span class="plate-example">SIV : AA-123-AA</span>
+                <span class="plate-example">FNI : 1234 AB 67</span>
+                <span class="plate-example">FNI : 123 ABC 75</span>
               </div>
             </div>
             <div><label>VIN / N° de série</label><input id="vin" autocomplete="off" placeholder="17 caractères si disponible"></div>
@@ -1723,6 +1854,97 @@ buildReportPro=function(){
     const txt=(div.textContent||"").trim();
     if(/^Marque \/ modèle|^Kilométrage|^1ère mise en circulation|^Contrôleur \/ stagiaire/.test(txt))div.remove();
   });
+};
+
+
+/* ===== V9.5 — Compatibilité plaques actuelles SIV + anciennes FNI ===== */
+let plateMode="AUTO";
+
+function setPlateMode(mode){
+  plateMode=mode||"AUTO";
+  const map={AUTO:"plateModeAuto",SIV:"plateModeSiv",FNI:"plateModeFni"};
+  Object.entries(map).forEach(([k,id])=>{
+    const b=document.getElementById(id);
+    if(b)b.classList.toggle("active",plateMode===k);
+  });
+  const input=document.getElementById("immat");
+  if(input){
+    updatePlateVisual(input.value||"");
+    input.focus();
+  }
+}
+
+function detectPlateFormat(raw){
+  const compact=String(raw||"").toUpperCase().replace(/[^A-Z0-9]/g,"");
+  if(/^[A-Z]{2}\d{3}[A-Z]{2}$/.test(compact))return"SIV";
+  if(/^\d{1,4}[A-Z]{1,3}(?:\d{2,3}|2A|2B)$/.test(compact))return"FNI";
+  if(/^[A-Z]/.test(compact))return"SIV";
+  if(/^\d/.test(compact))return"FNI";
+  return plateMode==="AUTO"?"SIV":plateMode;
+}
+
+function formatSiv(compact){
+  compact=compact.replace(/[^A-Z0-9]/g,"").slice(0,7);
+  if(compact.length<=2)return compact;
+  if(compact.length<=5)return compact.slice(0,2)+"-"+compact.slice(2);
+  return compact.slice(0,2)+"-"+compact.slice(2,5)+"-"+compact.slice(5,7);
+}
+
+function formatFni(raw){
+  let compact=String(raw||"").toUpperCase().replace(/[^A-Z0-9]/g,"").slice(0,10);
+  // Progressive old FNI input: leading digits, letters, department.
+  let first=compact.match(/^\d{1,4}/)?.[0]||"";
+  let rest=compact.slice(first.length);
+  let letters=rest.match(/^[A-Z]{1,3}/)?.[0]||"";
+  let dept=rest.slice(letters.length).replace(/[^A-Z0-9]/g,"").slice(0,3);
+  return [first,letters,dept].filter(Boolean).join(" ");
+}
+
+function extractFniDepartment(value){
+  const compact=String(value||"").toUpperCase().replace(/[^A-Z0-9]/g,"");
+  const m=compact.match(/(\d{2,3}|2A|2B)$/);
+  return m?m[1]:"";
+}
+
+function updatePlateVisual(value){
+  const visual=document.getElementById("plateVisual");
+  const dept=document.getElementById("plateDept");
+  const note=document.getElementById("plateFormatNote");
+  if(!visual)return;
+  const fmt=plateMode==="AUTO"?detectPlateFormat(value):plateMode;
+  visual.classList.toggle("mode-fni",fmt==="FNI");
+  if(fmt==="FNI"){
+    if(dept)dept.textContent=extractFniDepartment(value)||"";
+    if(note)note.textContent="Ancienne immatriculation FNI : format de type 1234 AB 67, 123 ABC 75, etc.";
+  }else{
+    if(dept)dept.textContent="67";
+    if(note)note.textContent="Plaque actuelle SIV : format de type AA-123-AA.";
+  }
+}
+
+function formatPlateInput(el){
+  if(!el)return;
+  let raw=(el.value||"").toUpperCase();
+  const fmt=plateMode==="AUTO"?detectPlateFormat(raw):plateMode;
+  el.value=fmt==="FNI"?formatFni(raw):formatSiv(raw);
+  updatePlateVisual(el.value);
+}
+
+document.addEventListener("DOMContentLoaded",()=>{
+  const el=document.getElementById("immat");
+  if(el){
+    if(el.value)formatPlateInput(el);
+    else updatePlateVisual("");
+  }
+});
+
+
+/* Synchronisation de la plaque après reprise d'une session */
+const _fillVehicleFormV95=fillVehicleFormFromV;
+fillVehicleFormFromV=function(){
+  _fillVehicleFormV95();
+  const el=document.getElementById("immat");
+  if(el)updatePlateVisual(el.value||"");
 };
 
 renderResumeBanner();trainingModeChanged();
